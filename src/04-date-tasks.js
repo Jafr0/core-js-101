@@ -20,7 +20,7 @@
  *    'Sun, 17 May 1998 03:00:00 GMT+01' => Date()
  */
 function parseDataFromRfc2822(value) {
-	return new Date(value);
+  return new Date(value);
 }
 
 /**
@@ -35,7 +35,7 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T08:07:37Z' => Date()
  */
 function parseDataFromIso8601(value) {
-	return new Date(value);
+  return new Date(value);
 }
 
 
@@ -54,13 +54,13 @@ function parseDataFromIso8601(value) {
  *    Date(2015,1,1)    => false
  */
 function isLeapYear(date) {
-	if ((date.getFullYear() % 4 !== 0) && date.getFullYear() % 400 !== 0) {
-		return false;
-	}
-	if ((date.getFullYear() % 100 === 0) && date.getFullYear() % 400 !== 0) {
-		return false;
-	}
-	return true;
+  if ((date.getFullYear() % 4 !== 0) && date.getFullYear() % 400 !== 0) {
+    return false;
+  }
+  if ((date.getFullYear() % 100 === 0) && date.getFullYear() % 400 !== 0) {
+    return false;
+  }
+  return true;
 }
 
 
@@ -80,22 +80,22 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
 function timeSpanToString(startDate, endDate) {
-	const startD = new Date(startDate);
-	const endD = new Date(endDate);
-	const diff = Math.abs(endD.getTime() - startD.getTime());
-	let msec = (diff % 1000);
-	let sec = Math.floor((diff / 1000) % 60);
-	let min = Math.floor((diff / (1000 * 60)) % 60);
-	let h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+  const startD = new Date(startDate);
+  const endD = new Date(endDate);
+  const diff = Math.abs(endD.getTime() - startD.getTime());
+  let msec = (diff % 1000);
+  let sec = Math.floor((diff / 1000) % 60);
+  let min = Math.floor((diff / (1000 * 60)) % 60);
+  let h = Math.floor((diff / (1000 * 60 * 60)) % 24);
 
-	if (msec > 10 && msec < 100) msec = `0${msec}`;
-	if (msec < 10) msec = `00${msec}`;
+  if (msec > 10 && msec < 100) msec = `0${msec}`;
+  if (msec < 10) msec = `00${msec}`;
 
-	h = (h < 10) ? `0${h}` : h;
-	min = (min < 10) ? `0${min}` : min;
-	sec = (sec < 10) ? `0${sec}` : sec;
+  h = (h < 10) ? `0${h}` : h;
+  min = (min < 10) ? `0${min}` : min;
+  sec = (sec < 10) ? `0${sec}` : sec;
 
-	return `${h}:${min}:${sec}.${msec}`;
+  return `${h}:${min}:${sec}.${msec}`;
 }
 
 
@@ -116,18 +116,18 @@ function timeSpanToString(startDate, endDate) {
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
 function angleBetweenClockHands(date) {
-	const h = date.getUTCHours() > 12 ? date.getUTCHours() - 12 : date.getUTCHours();
-	const hours = 0.5 * (60 * h + date.getUTCMinutes());
-	const min = 6 * date.getUTCMinutes();
-	const diff = hours - min > 180 ? hours - min - 180 : hours - min;
-	return (Math.PI * Math.abs(diff)) / 180;
+  const h = date.getUTCHours() > 12 ? date.getUTCHours() - 12 : date.getUTCHours();
+  const hours = 0.5 * (60 * h + date.getUTCMinutes());
+  const min = 6 * date.getUTCMinutes();
+  const diff = hours - min > 180 ? hours - min - 180 : hours - min;
+  return (Math.PI * Math.abs(diff)) / 180;
 }
 
 
 module.exports = {
-	parseDataFromRfc2822,
-	parseDataFromIso8601,
-	isLeapYear,
-	timeSpanToString,
-	angleBetweenClockHands,
+  parseDataFromRfc2822,
+  parseDataFromIso8601,
+  isLeapYear,
+  timeSpanToString,
+  angleBetweenClockHands,
 };
