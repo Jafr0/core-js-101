@@ -46,8 +46,8 @@ function getComposition(f, g) {
  *   power05(16) => 4
  *
  */
-function getPowerFunction(/* exponent */) {
-  throw new Error('Not implemented');
+function getPowerFunction(exponent) {
+  return (n) => n ** exponent;
 }
 
 
@@ -64,10 +64,15 @@ function getPowerFunction(/* exponent */) {
  *   getPolynom(8)     => y = 8
  *   getPolynom()      => null
  */
-function getPolynom() {
-  throw new Error('Not implemented');
+function getPolynom(...args) {
+  return function poly(...n) {
+    let ret = null;
+    for (let i = 0; i < args.length; i += 1) {
+      ret += args[i] * (n ** (args.length - i - 1));
+    }
+    return ret;
+  };
 }
-
 
 /**
  * Memoizes passed function and returns function
@@ -83,8 +88,14 @@ function getPolynom() {
  *   ...
  *   memoizer() => the same random number  (next run, returns the previous cached result)
  */
-function memoize(/* func */) {
-  throw new Error('Not implemented');
+function memoize(func) {
+  const mem = new Map();
+  return (n) => {
+    if (mem.has(n)) return mem.get(n);
+    const res = func(n);
+    mem.set(n, res);
+    return res;
+  };
 }
 
 
@@ -149,8 +160,12 @@ function logger(/* func, logFunc */) {
  *   partialUsingArguments(fn, 'a','b','c')('d') => 'abcd'
  *   partialUsingArguments(fn, 'a','b','c','d')() => 'abcd'
  */
-function partialUsingArguments(/* fn, ...args1 */) {
-  throw new Error('Not implemented');
+function partialUsingArguments(fn, ...args1) {
+  const args = Array.prototype.slice.call(args1);
+  return function part(...arg) {
+    const args2 = Array.from(arg);
+    return fn.apply(this, args.concat(args2));
+  };
 }
 
 
